@@ -6,20 +6,61 @@
 
         <title>Etch-a-Sketch</title>
 
-        <link href="stylesheet/main_style.css" rel="stylesheet" type="text/css"/>
+        <link href="./stylesheet/main_style.css" rel="stylesheet" type="text/css"/>
+        <link href="./stylesheet/slider.css" rel="stylesheet" type="text/css"/>
         <script src="./scripts/main_script.js" defer></script>
     </head>
     <body>
         <header>Etch-a-Sketch</header>
         <main>
-            <div id="upper-container"></div>
-            <div id="middle-container">
-                <div id="grid-container"></div>
+            <div id="left-cont">
+                <div id="toolbar-cont">
+                    <div id="canvas-color-cont">
+                        <div id="color-cont"></div>
+                    </div>
+                    <div id="blending-cont">
+                        <div class="blend-opt">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="blend-opt">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="blend-opt">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="blend-opt">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="blend-opt">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="blend-opt">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <div id="tools-cont">
+                        <div class="tool-opt"></div>
+                        <div class="tool-opt"></div>
+                        <div class="tool-opt"></div>
+                    </div>
+                </div>
             </div>
-            <div id="lower-container"></div>
+            <div id="middle-cont">
+                <div id="grid-cont"></div>
+            </div>
+            <div id="right-cont">
+                
+                <div class="slide-cont">
+                    <p class="slider-label">#Tiles</p>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="num-tiles-slider"/>
+                </div>
+                
+                <div class="slide-cont">
+                    <p class="slider-label">Grid-Opacity</p>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="grid-opacity-slider"/>
+                </div>
+            </div>
         </main>
         <footer>copyright © cj-cepe 2023</footer>
     </body>
-
-
 </html>

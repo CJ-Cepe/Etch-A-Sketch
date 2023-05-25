@@ -1,6 +1,6 @@
 
 const elements = {
-    gridCont: document.querySelector('#grid-container')
+    gridCont: document.querySelector('#grid-cont')
 }
 
 //create a function that procedurally creates div given number
@@ -36,6 +36,15 @@ function createDiv(numOfDivs=3){
 createDiv(10)
 addEvent()
 
+function removeDivs(){
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+
+    tiles.forEach((tile) => {
+        elements.gridCont.removeChild(tile)
+    })
+}
+
 function addEvent(){
     let tiles = document.querySelectorAll('.tile')
     console.log(tiles)
@@ -50,3 +59,30 @@ function addEvent(){
         })
     })
 }
+
+let slider = document.querySelector('#num-tiles-slider')
+let tempValue = 2 
+tempValue = slider.value
+console.log(tempValue)
+
+slider.addEventListener('input', ()=>{
+    console.log(tempValue)
+    removeDivs()
+    createDiv(slider.value)
+    addEvent()
+})
+
+let slider2 = document.querySelector('#grid-opacity-slider')
+
+slider2.addEventListener('input', ()=>{
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+    let tempOpacity = slider2.value/100
+    console.log(slider2.value)
+    console.log(tempOpacity)
+    tiles.forEach((tile) => {
+        tile.style.borderTop = `1px solid`
+        tile.style.borderRight = `1px solid`
+        tile.style.borderColor = `rgba(0, 0, 0, ${tempOpacity})`
+    })
+})
