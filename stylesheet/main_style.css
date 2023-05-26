@@ -150,7 +150,7 @@ main {
 }
 
 .rainbow{
-    background: conic-gradient(lime 90deg, yellow 0 180deg, red 0 270deg, blue 0 360deg);
+    background: conic-gradient(lime 315deg, lime 45deg, yellow 45deg, yellow 135deg, red 135deg, red 225deg, blue 225deg, blue 315deg);
 }
 
 .solid{
