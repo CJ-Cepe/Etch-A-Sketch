@@ -133,3 +133,14 @@ main {
     border-radius: 100%;
 }
 
+.complementary{
+    background: linear-gradient(135deg, blue 50%, red 50%);
+}
+
+.triadic{
+    background: conic-gradient(lime 120deg, yellow 0 240deg, red 0 0deg);
+    /*linear-gradient(135deg, blue 50%, transparent 50%),
+     linear-gradient(225deg, red 50%, transparent 50%); 
+        linear-gradient(45deg, green 50%, transparent 50%);  */
+        
+}
