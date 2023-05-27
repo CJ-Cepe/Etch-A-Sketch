@@ -9,8 +9,6 @@ const elements = {
     solidIcon: document.querySelector('.solid'),
     lightDarkIcon: document.querySelector('.light-dark'),
     darkLightIcon: document.querySelector('.dark-light'),
-    complementaryIcon: document.querySelector('.complementary'),
-    triadicIcon:document.querySelector('.triadic')
 }
 
 const initial = {
@@ -73,20 +71,16 @@ function removeTiles(){
 }
 
 function updateIconColors(){
+    //recolor first icon
     elements.solidIcon.style.backgroundColor = initial.BASE_COLOR
-    console.log(initial.BASE_COLOR[0])
-
+    
+    //change hex to rgb 
     let rgba = hexToRgb(initial.BASE_COLOR)
     rgba = 'rgba(' + rgba + ','
-    console.log(rgba)
+    
+    //recolor the shades/tint icon
     elements.lightDarkIcon.style.background = `linear-gradient(135deg, ${rgba}0.25) 0%, ${rgba}1) 100%)`
-    console.log(`linear-gradient(135deg, ${rgba} 0.25) 0%, ${rgba} 1) 100%);`)
-
     elements.darkLightIcon.style.background = `linear-gradient(135deg, ${rgba}1) 0%, ${rgba}0) 100%)`
-
-    let complementary = getComplementary(initial.BASE_COLOR)
-    elements.complementaryIcon.style.background = `linear-gradient(135deg, ${initial.BASE_COLOR} 50%, ${complementary} 50%)`
-    console.log(`linear-gradient(135deg, ${initial.BASE_COLOR} 50%, ${complementary} 50%)`)
 }
 
 function hexToRgb(hex){
@@ -103,12 +97,3 @@ function hexToRgb(hex){
     return aRgb
 }
 
-function getComplementary(color = ''){
-    let colorPart = color.slice(1);
-    let ind = parseInt(colorPart, 16);
-    let iter = ((1 << 4 * colorPart.length) - 1 - ind).toString(16);
-    while(iter.length < colorPart.length) {
-        iter = '0'+iter
-    }
-    return '#' + iter;
-}

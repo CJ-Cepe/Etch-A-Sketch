@@ -75,7 +75,7 @@ main {
 #toolbar-cont{
     background-color: aqua;
     width: 10rem;
-    height: 70%;
+    height: 60%;
 
     display: flex;
     flex-direction: column;
@@ -84,7 +84,7 @@ main {
 
 /* --- level 4 under toolbar-cont --- */
 #canvas-color-cont{
-    height: 20%;
+    height: 25%;
     background-color: rgb(230, 230, 157);
 
     display: flex;
@@ -93,7 +93,7 @@ main {
 }
 
 #blending-cont{
-    height: 45%;
+    height: 40%;
 
     display: flex;
     flex-wrap: wrap;
@@ -118,7 +118,7 @@ main {
 .blend-opt{
     background-color: rgb(146, 146, 13);
     width: 50%;
-    height: 33.333%;
+    height: 50%;
 
     display: flex;
     justify-content: center;
@@ -136,15 +136,6 @@ main {
     aspect-ratio: 1/1;
     width: 50%;
     border-radius: 50%;
-}
-
-.complementary{
-    background: linear-gradient(135deg, blue 50%, red 50%);
-}
-
-.triadic{
-    background: conic-gradient(lime 120deg, yellow 0 240deg, red 0 360deg);    
-    transform: rotate(315deg);   
 }
 
 .light-dark{
