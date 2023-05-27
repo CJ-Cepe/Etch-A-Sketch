@@ -107,6 +107,17 @@ main {
     flex-direction: column;
 }
 
+.tool-opt{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-opt:hover{
+    background-color: black;
+    color: white;
+}
+
 /* --- level 5 --- */
 #color-cont{
     background-color: transparent;
