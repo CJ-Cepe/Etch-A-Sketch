@@ -1,42 +1,64 @@
-
+// GLOBAL VARIABLES
 const elements = {
-    gridCont: document.querySelector('#grid-cont')
+    gridCont: document.querySelector('#grid-cont'),
+    tiles: document.querySelector('.tile'),
+    numTilesSlider: document.querySelector('#num-tiles-slider'),
+    gridOpacitySlider: document.querySelector('#grid-opacity-slider'),
+    colorCont: document.querySelector('#color-cont')
+
 }
 
-//create a function that procedurally creates div given number
-function createDiv(numOfDivs=3){
+const initial = {
+    BORDER_COLOR: `rgba(0, 0, 0, 0)`,
+    BASE_COLOR: `rgb(0, 0, 0)`
+}
 
-    //get main container size?
-    let gridContSize = elements.gridCont.clientWidth
-    //divide by num of divs then set as size for the tile width and height
-    let tileSize = gridContSize/numOfDivs
+createTiles(10)
+
+
+elements.numTilesSlider.addEventListener('input', ()=>{
+    removeTiles()
+    createTiles(elements.numTilesSlider.value)
+})
+
+elements.gridOpacitySlider.addEventListener('input', ()=>{
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+    let tempOpacity = elements.gridOpacitySlider.value/100
+
+    tiles.forEach((tile) => {
+        tile.style.borderColor = `rgba(0, 0, 0, ${tempOpacity})`
+        initial.BORDER_COLOR = tile.style.borderColor
+    })
+})
+
+elements.colorCont.addEventListener('input', function(){
+    initial.BASE_COLOR = elements.colorCont.value
+})
+
+//Procedurally creates tiles given number
+//  as well as computes their sizes
+function createTiles(numOfDivs=3){
+    //divide the container by num of divs then set as size for the tile width and height
+    let tileSize = elements.gridCont.clientWidth/numOfDivs
     tileSize = Math.round((tileSize + Number.EPSILON) * 1000) / 1000
-    //set width and height of each tile
-    
-    console.log(elements.gridCont.clientWidth)
-    console.log(elements.gridCont.clientHeight/numOfDivs)     
-    console.log(tileSize + 'px')     
 
-    //Loop
+    //generate divs
     for(let i = 1; i<=numOfDivs**2; i++){
-        //console.log(i)
-        
-        //create html element
         let tempDiv = document.createElement('div')
-        //add necessary attribute
-        //class & id
         tempDiv.classList.add('tile')
-        //add to DOM
         tempDiv.style.flexBasis = tileSize + 'px'
+        tempDiv.addEventListener('mouseover', () => {
+            tempDiv.style.backgroundColor = initial.BASE_COLOR
+        })
+        tempDiv.style.borderColor = initial.BORDER_COLOR;
+
         elements.gridCont.appendChild(tempDiv)
     }
-
 }
 
-createDiv(10)
-addEvent()
-
-function removeDivs(){
+//Removes each tile to make room for new tiles
+function removeTiles(){
     let tiles = document.querySelectorAll('.tile')
     tiles = Array.from(tiles)
 
@@ -45,44 +67,10 @@ function removeDivs(){
     })
 }
 
-function addEvent(){
-    let tiles = document.querySelectorAll('.tile')
-    console.log(tiles)
-    tiles = Array.from(tiles)
-    console.log(tiles)
-    tiles.forEach((tile) => {
-     /*    tile.addEventListener('mouseout', () => {
-            tile.style.backgroundColor = 'white'
-        }) */
-        tile.addEventListener('mouseover', () => {
-            tile.style.backgroundColor = 'black'
-        })
-    })
+function updateIconColors(){
+    solid
+    light-dark
+    dark-light
+    complementary
+    triadic
 }
-
-let slider = document.querySelector('#num-tiles-slider')
-let tempValue = 2 
-tempValue = slider.value
-console.log(tempValue)
-
-slider.addEventListener('input', ()=>{
-    console.log(tempValue)
-    removeDivs()
-    createDiv(slider.value)
-    addEvent()
-})
-
-let slider2 = document.querySelector('#grid-opacity-slider')
-
-slider2.addEventListener('input', ()=>{
-    let tiles = document.querySelectorAll('.tile')
-    tiles = Array.from(tiles)
-    let tempOpacity = slider2.value/100
-    console.log(slider2.value)
-    console.log(tempOpacity)
-    tiles.forEach((tile) => {
-        tile.style.borderTop = `1px solid`
-        tile.style.borderRight = `1px solid`
-        tile.style.borderColor = `rgba(0, 0, 0, ${tempOpacity})`
-    })
-})

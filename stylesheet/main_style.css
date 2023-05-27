@@ -57,12 +57,16 @@ main {
     margin: 2rem;
     background-color: aqua;
 
+    border: solid black 2px;
+
     display: flex;
     flex-wrap: wrap;
 }
 
 .tile {
     background-color: antiquewhite;
+    border-top: 1px solid;
+    border-right: 1px solid;
     flex-grow: 1;
     flex-shrink: 0;
 }
@@ -105,7 +109,8 @@ main {
 
 /* --- level 5 --- */
 #color-cont{
-    background-color: rgb(146, 146, 13);
+    background-color: transparent;
+    border: none;
     height: 40%;
     aspect-ratio: 1/1;
 }
