@@ -76,31 +76,33 @@ elements.rainbowIcon.addEventListener('click', ()=>{
 elements.lightDarkIcon.addEventListener('click', ()=>{
     let tiles = document.querySelectorAll('.tile')
     tiles = Array.from(tiles)
-    
-     tiles.forEach((tile) => {
-        tile.addEventListener('mouseover', () => {
-            let tempVal = window.getComputedStyle(tile).opacity;
-            console.log('light to dark')
-            if(tempVal<1){
-                tile.style.opacity = tempVal + 0.2;
+
+    tiles.forEach(function (tile) {
+        tile.onmouseover = () => {
+            let opacity = window.getComputedStyle(tile).opacity;
+            opacity = +opacity
+            if(opacity<1){
+                console.log('darken')
+                tile.style.opacity = opacity + 0.2;
             }
-        })
-    }) 
+        }
+    })
 })
 
 elements.darkLightIcon.addEventListener('click', ()=>{
     let tiles = document.querySelectorAll('.tile')
     tiles = Array.from(tiles)
-    
-     tiles.forEach((tile) => {
-        tile.addEventListener('mouseover', () => {
-            let tempVal = window.getComputedStyle(tile).opacity;
-            console.log('dark to Light')
-            if(tempVal>0){
-                tile.style.opacity = tempVal - 0.2;
+
+    tiles.forEach(function (tile) {
+        tile.onmouseover = () => {
+            let opacity = window.getComputedStyle(tile).opacity
+            opacity = +opacity
+            if(opacity>0){
+                console.log('lighten')
+                tile.style.opacity = opacity - 0.2;
             }
-        })
-    }) 
+        }
+    })
 })
 
 //=================
@@ -112,6 +114,7 @@ elements.eraser.addEventListener('click', function(){
     tiles.forEach((tile) => {
         tile.addEventListener('mouseover', () => {
             tile.style.backgroundColor = initial.BASE_COLOR;
+            tile.style.opacity = 1
         })
     })
 })
@@ -123,6 +126,7 @@ elements.clear.addEventListener('click', function(){
     //possible to change base on base background not just white
     tiles.forEach((tile) => {
         tile.style.backgroundColor = `white`
+        tile.style.opacity = 1
     })
 })
 
