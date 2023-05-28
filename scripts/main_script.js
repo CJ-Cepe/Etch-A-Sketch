@@ -8,6 +8,7 @@ const elements = {
     colorCont: document.querySelector('#color-cont'),
 
     solidIcon: document.querySelector('.solid'),
+    rainbowIcon: document.querySelector('.rainbow'),
     lightDarkIcon: document.querySelector('.light-dark'),
     darkLightIcon: document.querySelector('.dark-light'),
 
@@ -23,11 +24,13 @@ const initial = {
 
 createTiles(10)
 
+//Generate desired Grid Dimension
 elements.numTilesSlider.addEventListener('input', ()=>{
     removeTiles()
     createTiles(elements.numTilesSlider.value)
 })
 
+//Adjust tile grid opacity
 elements.gridOpacitySlider.addEventListener('input', ()=>{
     let tiles = document.querySelectorAll('.tile')
     tiles = Array.from(tiles)
@@ -39,20 +42,85 @@ elements.gridOpacitySlider.addEventListener('input', ()=>{
     })
 })
 
+//picking colors
 elements.colorCont.addEventListener('input', function(){
     initial.BASE_COLOR = elements.colorCont.value
     updateIconColors()
 })
 
+elements.solidIcon.addEventListener('click', function(){
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+    initial.BASE_COLOR = elements.colorCont.value
+
+    tiles.forEach((tile) => {
+        tile.addEventListener('mouseover', () => {
+            tile.style.backgroundColor = initial.BASE_COLOR;
+        })
+    })
+})
+
+elements.rainbowIcon.addEventListener('click', ()=>{
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+    
+     tiles.forEach((tile) => {
+        tile.addEventListener('mouseover', () => {
+            tile.style.backgroundColor =  rainbow()
+        })
+    }) 
+})
+
+
+//================= darken and lighten =================================
+elements.lightDarkIcon.addEventListener('click', ()=>{
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+    
+     tiles.forEach((tile) => {
+        tile.addEventListener('mouseover', () => {
+            let tempVal = window.getComputedStyle(tile).opacity;
+            console.log('light to dark')
+            if(tempVal<1){
+                tile.style.opacity = tempVal + 0.2;
+            }
+        })
+    }) 
+})
+
+elements.darkLightIcon.addEventListener('click', ()=>{
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+    
+     tiles.forEach((tile) => {
+        tile.addEventListener('mouseover', () => {
+            let tempVal = window.getComputedStyle(tile).opacity;
+            console.log('dark to Light')
+            if(tempVal>0){
+                tile.style.opacity = tempVal - 0.2;
+            }
+        })
+    }) 
+})
+
+//=================
 elements.eraser.addEventListener('click', function(){
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
     initial.BASE_COLOR = 'white'
+
+    tiles.forEach((tile) => {
+        tile.addEventListener('mouseover', () => {
+            tile.style.backgroundColor = initial.BASE_COLOR;
+        })
+    })
 })
 
 elements.clear.addEventListener('click', function(){
     let tiles = document.querySelectorAll('.tile')
     tiles = Array.from(tiles)
-    let tempOpacity = elements.gridOpacitySlider.value/100
 
+    //possible to change base on base background not just white
     tiles.forEach((tile) => {
         tile.style.backgroundColor = `white`
     })
@@ -75,6 +143,7 @@ function downloadUrl(url, name) {
     link.click()
     link.remove()
 }
+
 
 //Procedurally creates tiles given number
 //  as well as computes their sizes
@@ -137,3 +206,17 @@ function hexToRgb(hex){
     return aRgb
 }
 
+function rainbow(){
+    let red = getRandomNumber()
+    let green = getRandomNumber()
+    let blue = getRandomNumber()
+    
+    console.log(`rgb(${red}, ${green}, ${blue})`)
+    return `rgb(${red}, ${green}, ${blue})`
+    //return ``
+}
+
+function getRandomNumber(){
+    let range = 255
+    return Math.floor(Math.random() * range) + 1;
+}
