@@ -49,26 +49,18 @@ elements.colorCont.addEventListener('input', function(){
 })
 
 elements.solidIcon.addEventListener('click', function(){
-    let tiles = document.querySelectorAll('.tile')
-    tiles = Array.from(tiles)
-    initial.BASE_COLOR = elements.colorCont.value
-
-    tiles.forEach((tile) => {
-        tile.addEventListener('mouseover', () => {
-            tile.style.backgroundColor = initial.BASE_COLOR;
-        })
-    })
+    elements.gridCont.onmouseover = (e) => {
+        initial.BASE_COLOR = elements.colorCont.value
+        e.target.style.backgroundColor = initial.BASE_COLOR
+        console.log(`solid`)
+    }
 })
 
 elements.rainbowIcon.addEventListener('click', ()=>{
-    let tiles = document.querySelectorAll('.tile')
-    tiles = Array.from(tiles)
-    
-     tiles.forEach((tile) => {
-        tile.addEventListener('mouseover', () => {
-            tile.style.backgroundColor =  rainbow()
-        })
-    }) 
+    elements.gridCont.onmouseover = (e) => {
+        e.target.style.backgroundColor = rainbow()
+        console.log(`rainbow`)
+    }
 })
 
 
