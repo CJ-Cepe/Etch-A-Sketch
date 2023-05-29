@@ -51,50 +51,74 @@ elements.colorCont.addEventListener('input', function(){
 
 elements.solidIcon.addEventListener('click', function(){
     elements.gridCont.onmouseover = (e) => {
-        initial.BASE_COLOR = elements.colorCont.value
-        e.target.style.backgroundColor = initial.BASE_COLOR
-        console.log(`solid`)
+        if(e.target != elements.gridCont){
+            initial.BASE_COLOR = elements.colorCont.value
+            e.target.style.backgroundColor = initial.BASE_COLOR
+            console.log(`solid`)
+            //opacity can be set to 1
+        }
     }
+
+    highLightButton(1)
 })
 
 elements.rainbowIcon.addEventListener('click', ()=>{
     elements.gridCont.onmouseover = (e) => {
-        e.target.style.backgroundColor = rainbow()
-        console.log(`rainbow`)
+        if(e.target != elements.gridCont){
+            e.target.style.backgroundColor = rainbow()
+            console.log(`rainbow`)
+            //opacity can be set to 1
+        }
     }
+
+    highLightButton(2)
 })
 
 
 //================= darken and lighten =================================
 elements.lightDarkIcon.addEventListener('click', ()=>{
     elements.gridCont.onmouseover = (e) => {
-        let opacity = window.getComputedStyle(e.target).opacity
-        opacity = +opacity
-        if(opacity<1){
-            console.log('darken')
-            e.target.style.opacity = opacity + 0.2
+        if(e.target != elements.gridCont){
+            let opacity = window.getComputedStyle(e.target).opacity
+            opacity = +opacity
+            if(opacity<1){
+                console.log('darken')
+                e.target.style.opacity = opacity + 0.2
+            }
         }
     }
+
+    highLightButton(3)
 })
 
 elements.darkLightIcon.addEventListener('click', ()=>{
     elements.gridCont.onmouseover = (e) => {
-        let opacity = window.getComputedStyle(e.target).opacity
-        opacity = +opacity
-        if(opacity>0){
-            console.log('lighten')
-            e.target.style.opacity = opacity - 0.2
+        //if to prevent the parent being the e.target
+        // we want only the child
+        if(e.target != elements.gridCont){
+            let opacity = window.getComputedStyle(e.target).opacity
+            opacity = +opacity
+            if(opacity>0){
+                console.log('lighten')
+                e.target.style.opacity = opacity - 0.2
+            }
         }
     }
+
+    highLightButton(4)
 })
 
 //================ 
 elements.eraser.addEventListener('click', function(){
     elements.gridCont.onmouseover = (e) => {
-        e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
-        e.target.style.opacity = 1
-        console.log('eraser')
+        if(e.target != elements.gridCont){
+            e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
+            e.target.style.opacity = 1
+            console.log('eraser')
+        }
     }
+
+    highLightButton(5)
 })
 
 elements.clear.addEventListener('click', function(){
@@ -107,6 +131,8 @@ elements.clear.addEventListener('click', function(){
         tile.style.opacity = 1
         console.log('clear')
     })
+
+    highLightButton(6)
 })
 
 //from http://html2canvas.hertzen.com/
@@ -115,6 +141,8 @@ elements.save.addEventListener('click', ()=>{
         let myImage = canvas.toDataURL();
         downloadUrl(myImage, 'my_image.png')
     })
+
+    highLightButton(6)
 })
 
 function downloadUrl(url, name) {
@@ -126,7 +154,6 @@ function downloadUrl(url, name) {
     link.click()
     link.remove()
 }
-
 
 //Procedurally creates tiles given number
 //  as well as computes their sizes
@@ -140,11 +167,9 @@ function createTiles(numOfDivs=3){
         let tempDiv = document.createElement('div')
         tempDiv.classList.add('tile')
         tempDiv.style.flexBasis = tileSize + 'px'
-        tempDiv.addEventListener('mouseover', () => {
-            tempDiv.style.backgroundColor = initial.BASE_COLOR
-        })
-        tempDiv.style.borderColor = initial.BORDER_COLOR;
 
+        //to set the border color
+        tempDiv.style.borderColor = initial.BORDER_COLOR;
         elements.gridCont.appendChild(tempDiv)
     }
 }
@@ -202,4 +227,46 @@ function rainbow(){
 function getRandomNumber(){
     let range = 255
     return Math.floor(Math.random() * range) + 1;
+}
+
+function highLightButton(button){
+    switch(button){
+        case 1:
+            //highlight solid button
+            resetButtonHighlight()
+            elements.solidIcon.style.border = `solid 3px red`
+            break
+        case 2:
+            //highlight rainbow
+            resetButtonHighlight()
+            elements.rainbowIcon.style.border = `solid 3px red`
+            break
+        case 3:
+            //highlight light to dark
+            resetButtonHighlight()
+            elements.lightDarkIcon.style.border = `solid 3px red`
+            break
+        case 4:
+            //highlight dark to light
+            resetButtonHighlight()
+            elements.darkLightIcon.style.border = `solid 3px red`
+            break
+        case 5:
+            resetButtonHighlight()
+            elements.eraser.style.border = `solid 3px red`
+            break
+        case 6:
+            //no highlight
+            resetButtonHighlight()
+            //clear and save
+            break
+    }
+}
+
+function resetButtonHighlight(){
+    elements.solidIcon.style.border = 'none'
+    elements.rainbowIcon.style.border = 'none'
+    elements.lightDarkIcon.style.border = 'none'
+    elements.darkLightIcon.style.border = 'none'
+    elements.eraser.style.border = 'none'
 }
