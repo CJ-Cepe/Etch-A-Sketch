@@ -15,6 +15,9 @@ const elements = {
     eraser: document.querySelector('.eraser'),
     clear: document.querySelector('.clear'),
     save: document.querySelector('.save'),
+
+    canvasColor: document.querySelector('#canvas-color-cont'),
+    canvasColorPicker: document.querySelector('.background-color'),
 }
 
 const initial = {
@@ -22,6 +25,26 @@ const initial = {
     BASE_COLOR: `rgb(0, 0, 0)`,
     BACKGROUND_COLOR:  `rgb(255, 255, 255)`,
 }
+
+elements.canvasColor.addEventListener('click', () => {
+    elements.canvasColorPicker.click()
+    console.log('canvas cliked')
+})
+
+/* //note to me
+1. add classname to All tiles
+2. if filled/colored add new class in the list
+3. if element doesn't have this class, cant be shade/tint 
+4. elements without that class is a background  */
+
+
+elements.canvasColorPicker.addEventListener('input', () => {
+    elements.canvasColor.style.backgroundColor = elements.canvasColorPicker.value
+    initial.BACKGROUND_COLOR = elements.canvasColorPicker.value
+})
+
+
+
 
 createTiles(10)
 
@@ -167,6 +190,9 @@ function createTiles(numOfDivs=3){
         let tempDiv = document.createElement('div')
         tempDiv.classList.add('tile')
         tempDiv.style.flexBasis = tileSize + 'px'
+
+
+        tempDiv.style.backgroundColor = initial.BACKGROUND_COLOR
 
         //to set the border color
         tempDiv.style.borderColor = initial.BORDER_COLOR;

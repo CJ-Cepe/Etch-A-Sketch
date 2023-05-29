@@ -119,6 +119,16 @@ main {
 }
 
 /* --- level 5 --- */
+#canvas-color-cont{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+}
+
+.background-color{
+    display: none;
+}
+
 #color-cont{
     background-color: transparent;
     border: none;
