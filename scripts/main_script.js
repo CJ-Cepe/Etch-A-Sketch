@@ -19,7 +19,8 @@ const elements = {
 
 const initial = {
     BORDER_COLOR: `rgba(0, 0, 0, 0)`,
-    BASE_COLOR: `rgb(0, 0, 0)`
+    BASE_COLOR: `rgb(0, 0, 0)`,
+    BACKGROUND_COLOR:  `rgb(255, 255, 255)`,
 }
 
 createTiles(10)
@@ -66,49 +67,34 @@ elements.rainbowIcon.addEventListener('click', ()=>{
 
 //================= darken and lighten =================================
 elements.lightDarkIcon.addEventListener('click', ()=>{
-    let tiles = document.querySelectorAll('.tile')
-    tiles = Array.from(tiles)
-
-    tiles.forEach(function (tile) {
-        tile.onmouseover = () => {
-            let opacity = window.getComputedStyle(tile).opacity;
-            opacity = +opacity
-            if(opacity<1){
-                console.log('darken')
-                tile.style.opacity = opacity + 0.2;
-            }
+    elements.gridCont.onmouseover = (e) => {
+        let opacity = window.getComputedStyle(e.target).opacity
+        opacity = +opacity
+        if(opacity<1){
+            console.log('darken')
+            e.target.style.opacity = opacity + 0.2
         }
-    })
+    }
 })
 
 elements.darkLightIcon.addEventListener('click', ()=>{
-    let tiles = document.querySelectorAll('.tile')
-    tiles = Array.from(tiles)
-
-    tiles.forEach(function (tile) {
-        tile.onmouseover = () => {
-            let opacity = window.getComputedStyle(tile).opacity
-            opacity = +opacity
-            if(opacity>0){
-                console.log('lighten')
-                tile.style.opacity = opacity - 0.2;
-            }
+    elements.gridCont.onmouseover = (e) => {
+        let opacity = window.getComputedStyle(e.target).opacity
+        opacity = +opacity
+        if(opacity>0){
+            console.log('lighten')
+            e.target.style.opacity = opacity - 0.2
         }
-    })
+    }
 })
 
-//=================
+//================ 
 elements.eraser.addEventListener('click', function(){
-    let tiles = document.querySelectorAll('.tile')
-    tiles = Array.from(tiles)
-    initial.BASE_COLOR = 'white'
-
-    tiles.forEach((tile) => {
-        tile.addEventListener('mouseover', () => {
-            tile.style.backgroundColor = initial.BASE_COLOR;
-            tile.style.opacity = 1
-        })
-    })
+    elements.gridCont.onmouseover = (e) => {
+        e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
+        e.target.style.opacity = 1
+        console.log('eraser')
+    }
 })
 
 elements.clear.addEventListener('click', function(){
@@ -117,8 +103,9 @@ elements.clear.addEventListener('click', function(){
 
     //possible to change base on base background not just white
     tiles.forEach((tile) => {
-        tile.style.backgroundColor = `white`
+        tile.style.backgroundColor = initial.BACKGROUND_COLOR
         tile.style.opacity = 1
+        console.log('clear')
     })
 })
 
