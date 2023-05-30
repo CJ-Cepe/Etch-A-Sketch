@@ -12,6 +12,11 @@ const elements = {
     lightDarkIcon: document.querySelector('.light-dark'),
     darkLightIcon: document.querySelector('.dark-light'),
 
+    solidOpt: document.querySelector('.solid-opt'),
+    rainbowOpt: document.querySelector('.rainbow-opt'),
+    lightDarkOpt: document.querySelector('.light-dark-opt'),
+    darkLightOpt: document.querySelector('.dark-light-opt'),
+
     eraser: document.querySelector('.eraser'),
     clear: document.querySelector('.clear'),
     save: document.querySelector('.save'),
@@ -24,9 +29,10 @@ const elements = {
 }
 
 const initial = {
-    BORDER_COLOR: `rgba(0, 0, 0, 0)`,
+    BORDER_COLOR: `rgba(0, 0, 0, 0.1)`,
     BASE_COLOR: `rgb(0, 0, 0)`,
-    BACKGROUND_COLOR:  `rgb(255, 255, 255)`,
+    //BACKGROUND_COLOR:  `rgb(255, 255, 255)`,
+    BACKGROUND_COLOR: `#e8e8e8`,
 }
 
 elements.canvasColor.addEventListener('click', () => {
@@ -69,6 +75,7 @@ createTiles(10)
 //Generate desired Grid Dimension
 elements.numTilesSlider.addEventListener('input', ()=>{
     removeTiles()
+    console.log(elements.numTilesSlider.value)
     createTiles(elements.numTilesSlider.value)
     elements.dimension.textContent = `${elements.numTilesSlider.value}`
 })
@@ -293,26 +300,26 @@ function highLightButton(button){
         case 1:
             //highlight solid button
             resetButtonHighlight()
-            elements.solidIcon.style.border = `solid 3px red`
+            elements.solidOpt.style.boxShadow = `inset 10px 10px 12px #bebebe, inset -6px -6px 8px #ffffff`
             break
         case 2:
             //highlight rainbow
             resetButtonHighlight()
-            elements.rainbowIcon.style.border = `solid 3px red`
+            elements.rainbowOpt.style.boxShadow = `inset 10px 10px 12px #bebebe, inset -6px -6px 8px #ffffff`
             break
         case 3:
             //highlight light to dark
             resetButtonHighlight()
-            elements.lightDarkIcon.style.border = `solid 3px red`
+            elements.lightDarkOpt.style.boxShadow = `inset 10px 10px 12px #bebebe, inset -6px -6px 8px #ffffff`
             break
         case 4:
             //highlight dark to light
             resetButtonHighlight()
-            elements.darkLightIcon.style.border = `solid 3px red`
+            elements.darkLightOpt.style.boxShadow = `inset 10px 10px 12px #bebebe, inset -6px -6px 8px #ffffff`
             break
         case 5:
             resetButtonHighlight()
-            elements.eraser.style.border = `solid 3px red`
+            elements.eraser.style.boxShadow = `inset 8px 8px 12px #bebebe, inset -6px -6px 8px #ffffff`
             break
         case 6:
             //no highlight
@@ -323,9 +330,9 @@ function highLightButton(button){
 }
 
 function resetButtonHighlight(){
-    elements.solidIcon.style.border = 'none'
-    elements.rainbowIcon.style.border = 'none'
-    elements.lightDarkIcon.style.border = 'none'
-    elements.darkLightIcon.style.border = 'none'
-    elements.eraser.style.border = 'none'
+    elements.solidOpt.style.boxShadow = 'none'
+    elements.rainbowOpt.style.boxShadow = 'none'
+    elements.lightDarkOpt.style.boxShadow = 'none'
+    elements.darkLightOpt.style.boxShadow = 'none'
+    elements.eraser.style.boxShadow = 'none'
 }

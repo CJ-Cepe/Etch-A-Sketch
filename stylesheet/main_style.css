@@ -1,9 +1,9 @@
-
 *{
-   /* outline: red 1px solid; */
+     /*outline: red 1px solid; */
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    transition: box-shadow .2s;
 }
 
 body{
@@ -26,13 +26,13 @@ header, footer{
 main {
     height: 90%;
     display: flex;
-    background-color: aquamarine;
+    background-color: #e8e8e8;
 }
 
 /* --- level 2 under main--- */
 #right-cont, #left-cont{
     flex-grow: 1;
-    background-color: antiquewhite;
+    background-color: #e8e8e8;
 
     display: flex;
     justify-content: center;
@@ -40,6 +40,7 @@ main {
 }
 
 #middle-cont {
+    flex-grow: 0.2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,15 +53,16 @@ main {
 
 /* --- level 3 under mid-cont --- */
 #grid-cont {
-    width: 800px;
-    height: 800px;
+    width: 700px;
+    height: 700px;
     margin: 2rem;
-    background-color: white;
-
-    border: solid black 2px;
+    background-color: #e8e8e8;
 
     display: flex;
     flex-wrap: wrap;
+
+    box-shadow: 20px 20px 22px #bebebe,
+    -20px -20px 22px #ffffff;
 }
 
 .tile {
@@ -73,23 +75,36 @@ main {
 
 /* --- level 3 under left-cont --- */
 #toolbar-cont{
-    background-color: aqua;
     width: 10rem;
     height: 60%;
 
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+
+    background: #e8e8e8;
+    border-radius: 25px;
+    box-shadow: 20px 20px 22px #bebebe,
+    -20px -20px 22px #ffffff;
+
+    padding: 2px;
 }
 
 /* --- level 4 under toolbar-cont --- */
 #canvas-color-cont{
     height: 25%;
-    background-color: rgb(230, 230, 157);
 
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    margin: 5px;
+}
+
+#canvas-color-cont:hover {
+    box-shadow: inset 10px 10px 12px #bebebe,
+    inset -10px -10px 12px #ffffff;
 }
 
 #blending-cont{
@@ -97,34 +112,42 @@ main {
 
     display: flex;
     flex-wrap: wrap;
+    margin: 5px;
+
+    align-items: center;
+}
+
+.line{
+    height: 1px;
+    width: 50%;
+    background: rgb(175, 172, 172);
+
+    align-self: center;
 }
 
 #tools-cont{
-    height: 35%;
-    background-color: antiquewhite;
+    height: 35%;    
 
     display: flex;
     flex-direction: column;
+    margin: 5px 10px 10px;
 }
 
 .tool-opt{
     display:flex;
     justify-content: center;
     align-items: center;
+
+    border-radius: 10px;
+    margin: 5px;
 }
 
 .tool-opt:hover{
-    background-color: black;
-    color: white;
+    box-shadow: inset 8px 8px 12px #bebebe,
+    inset -6px -6px 8px #ffffff;
 }
 
 /* --- level 5 --- */
-#canvas-color-cont{
-    display: flex;
-    flex-direction: row;
-    background-color: white;
-}
-
 .background-color{
     display: none;
 }
@@ -137,17 +160,21 @@ main {
 }
 
 .blend-opt{
-    background-color: rgb(146, 146, 13);
     width: 50%;
-    height: 50%;
+    height: 40%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
+}
+
+.blend-opt:hover{
+    box-shadow: inset 10px 10px 12px #bebebe,
+    inset -6px -6px 8px #ffffff;
 }
 
 .tool-opt{
-    background-color: rgb(108, 165, 81);
     height: 33.333%;
 }
 

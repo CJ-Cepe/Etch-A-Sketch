@@ -22,20 +22,22 @@
                         <input type='color' class="background-color" /> 
                         <input type="color" id="color-cont" value="#000000"/>
                     </div>
+                    <div class="line"></div>
                     <div id="blending-cont">
-                        <div class="blend-opt">
+                        <div class="blend-opt solid-opt">
                             <div class="circle solid"></div>
                         </div>
-                        <div class="blend-opt">
+                        <div class="blend-opt rainbow-opt">
                             <div class="circle rainbow"></div>
                         </div>
-                        <div class="blend-opt">
+                        <div class="blend-opt light-dark-opt">
                             <div class="circle light-dark"></div>
                         </div>
-                        <div class="blend-opt">
+                        <div class="blend-opt dark-light-opt">
                             <div class="circle dark-light"></div>
                         </div>
                     </div>
+                    <div class="line"></div>
                     <div id="tools-cont">
                         <div class="tool-opt eraser">
                             <img src="#" alt="eraser" class="">🍞
@@ -55,15 +57,15 @@
             <div id="right-cont">
                 
                 <div class="slide-cont">
-                    <p class="slider-label">#Tiles</p>
-                    <p id='canvas-dimension'>50</p>
-                    <input type="range" min="1" max="100" value="50" class="slider" id="num-tiles-slider"/>
+                    <p class="slider-label">dimension</p>
+                    <p class="slider-value" id='canvas-dimension'>10 x 10</p>
+                    <input type="range" min="1" max="100" value="10" class="slider" id="num-tiles-slider"/>
                 </div>
                 
                 <div class="slide-cont">
-                    <p class="slider-label">Grid-Opacity</p>
-                    <p id='grid-opacity'>0</p>
-                    <input type="range" min="0" max="100" value="0" class="slider" id="grid-opacity-slider"/>
+                    <p class="slider-label">grid-opacity</p>
+                    <p class="slider-value" id='grid-opacity'>0.1</p>
+                    <input type="range" min="0" max="100" value="10" class="slider" id="grid-opacity-slider"/>
                 </div>
             </div>
         </main>
