@@ -18,6 +18,9 @@ const elements = {
 
     canvasColor: document.querySelector('#canvas-color-cont'),
     canvasColorPicker: document.querySelector('.background-color'),
+
+    dimension: document.getElementById('canvas-dimension'),
+    opacity: document.getElementById('grid-opacity'),
 }
 
 const initial = {
@@ -41,9 +44,24 @@ elements.canvasColor.addEventListener('click', () => {
 elements.canvasColorPicker.addEventListener('input', () => {
     elements.canvasColor.style.backgroundColor = elements.canvasColorPicker.value
     initial.BACKGROUND_COLOR = elements.canvasColorPicker.value
+
+
+    let tiles = document.querySelectorAll('.tile')
+    tiles = Array.from(tiles)
+
+    //possible to change base on base background not just white
+    tiles.forEach((tile) => {
+        if(!tile.classList.contains('colored')){
+            tile.style.backgroundColor = initial.BACKGROUND_COLOR
+            tile.style.opacity = 1
+            console.log('canvas color change')
+        }
+    })
+
+    elements.gridCont.style.backgroundColor = initial.BACKGROUND_COLOR
+    console.log(`${initial.BACKGROUND_COLOR}`)
+    console.log(`${elements.gridCont.style.backgroundColor}`)
 })
-
-
 
 
 createTiles(10)
@@ -52,6 +70,7 @@ createTiles(10)
 elements.numTilesSlider.addEventListener('input', ()=>{
     removeTiles()
     createTiles(elements.numTilesSlider.value)
+    elements.dimension.textContent = `${elements.numTilesSlider.value}`
 })
 
 //Adjust tile grid opacity
@@ -64,6 +83,8 @@ elements.gridOpacitySlider.addEventListener('input', ()=>{
         tile.style.borderColor = `rgba(0, 0, 0, ${tempOpacity})`
         initial.BORDER_COLOR = tile.style.borderColor
     })
+
+    elements.opacity.textContent = `${elements.gridOpacitySlider.value/100}`
 })
 
 //picking colors
@@ -79,6 +100,7 @@ elements.solidIcon.addEventListener('click', function(){
             e.target.style.backgroundColor = initial.BASE_COLOR
             console.log(`solid`)
             //opacity can be set to 1
+            e.target.classList.add('colored')
         }
     }
 
@@ -91,6 +113,7 @@ elements.rainbowIcon.addEventListener('click', ()=>{
             e.target.style.backgroundColor = rainbow()
             console.log(`rainbow`)
             //opacity can be set to 1
+            e.target.classList.add('colored')
         }
     }
 
@@ -102,11 +125,13 @@ elements.rainbowIcon.addEventListener('click', ()=>{
 elements.lightDarkIcon.addEventListener('click', ()=>{
     elements.gridCont.onmouseover = (e) => {
         if(e.target != elements.gridCont){
-            let opacity = window.getComputedStyle(e.target).opacity
-            opacity = +opacity
-            if(opacity<1){
-                console.log('darken')
-                e.target.style.opacity = opacity + 0.2
+            if(e.target.classList.contains('colored')){
+                let opacity = window.getComputedStyle(e.target).opacity
+                opacity = +opacity
+                if(opacity<1){
+                    console.log('darken')
+                    e.target.style.opacity = opacity + 0.2
+                }
             }
         }
     }
@@ -119,11 +144,13 @@ elements.darkLightIcon.addEventListener('click', ()=>{
         //if to prevent the parent being the e.target
         // we want only the child
         if(e.target != elements.gridCont){
-            let opacity = window.getComputedStyle(e.target).opacity
-            opacity = +opacity
-            if(opacity>0){
-                console.log('lighten')
-                e.target.style.opacity = opacity - 0.2
+            if(e.target.classList.contains('colored')){
+                let opacity = window.getComputedStyle(e.target).opacity
+                opacity = +opacity
+                if(opacity>0){
+                    console.log('lighten')
+                    e.target.style.opacity = opacity - 0.2
+                }
             }
         }
     }
@@ -135,9 +162,12 @@ elements.darkLightIcon.addEventListener('click', ()=>{
 elements.eraser.addEventListener('click', function(){
     elements.gridCont.onmouseover = (e) => {
         if(e.target != elements.gridCont){
-            e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
-            e.target.style.opacity = 1
-            console.log('eraser')
+            if(e.target.classList.contains('colored')){
+                e.target.classList.remove('colored')
+                e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
+                e.target.style.opacity = 1
+                console.log('eraser')
+            }
         }
     }
 
@@ -150,9 +180,12 @@ elements.clear.addEventListener('click', function(){
 
     //possible to change base on base background not just white
     tiles.forEach((tile) => {
-        tile.style.backgroundColor = initial.BACKGROUND_COLOR
-        tile.style.opacity = 1
-        console.log('clear')
+        if(tile.classList.contains('colored')){
+            tile.classList.remove('colored')
+            tile.style.backgroundColor = initial.BACKGROUND_COLOR
+            tile.style.opacity = 1
+            console.log('clear')
+        }
     })
 
     highLightButton(6)
