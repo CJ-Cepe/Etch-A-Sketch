@@ -68,6 +68,12 @@ main {
 
     box-shadow: 20px 20px 22px #bebebe,
     -20px -20px 22px #ffffff;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 .tile {
@@ -75,6 +81,13 @@ main {
     outline: 1px solid rgba(26, 26, 26, 0.1);
     flex-grow: 1;
     flex-shrink: 0;
+
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 

@@ -94,8 +94,8 @@ elements.gridOpacitySlider.addEventListener('input', ()=>{
     let tempOpacity = elements.gridOpacitySlider.value/100
 
     tiles.forEach((tile) => {
-        tile.style.borderColor = `rgba(0, 0, 0, ${tempOpacity})`
-        initial.BORDER_COLOR = tile.style.borderColor
+        tile.style.outlineColor = `rgba(0, 0, 0, ${tempOpacity})`
+        initial.OUTLINE_COLOR = tile.style.outlineColor
     })
 
     elements.opacity.textContent = `${elements.gridOpacitySlider.value/100}`
@@ -107,18 +107,43 @@ elements.colorCont.addEventListener('input', function(e){
     updateIconColors()
 })
 
+
+elements.gridCont.addEventListener('mousedown', function(e){
+    elements.gridCont.clicked = true;
+
+    //so that the first tile that is clicked, is colored as well
+    elements.gridCont.onmouseover(e, 'mouseover');
+})
+
+elements.gridCont.addEventListener('mouseup', function(e){
+    elements.gridCont.clicked = false;
+})
+
+elements.gridCont.addEventListener('mouseleave', function(e){
+    elements.gridCont.clicked = false;
+    console.log('onmouseleave')
+})
+
+
 elements.solidIcon.addEventListener('click', function(){
-    elements.gridCont.onmouseover = (e) => {
-        if(e.target != elements.gridCont){
-            initial.BASE_COLOR = elements.colorCont.value
-            e.target.style.backgroundColor = initial.BASE_COLOR
-            console.log(`solid`)
-            //opacity can be set to 1
-            e.target.style.opacity = 1
-            e.target.classList.add('colored')
+    elements.gridCont.onmouseover = (e, temp) => {
+        console.log(e)
+        if((e.type === 'mouseover' || temp === 'mouseover') && elements.gridCont.clicked){
+            console.log(`clicked ${elements.gridCont.clicked}`)
+
+            if(e.target != elements.gridCont){
+                initial.BASE_COLOR = elements.colorCont.value
+                e.target.style.backgroundColor = initial.BASE_COLOR
+                console.log(`solid`)
+                //opacity can be set to 1
+                e.target.style.opacity = 1
+                e.target.classList.add('colored')
+            }
+
+        } else {
+            console.log(`not clicked ${elements.gridCont.clicked}`)
         }
     }
-
     highLightButton(1)
 })
 
@@ -144,6 +169,7 @@ elements.lightDarkIcon.addEventListener('click', ()=>{
             if(e.target.classList.contains('colored')){
                 let opacity = window.getComputedStyle(e.target).opacity
                 opacity = +opacity
+                console.log(opacity)
                 if(opacity<1){
                     console.log('darken')
                     e.target.style.opacity = opacity + 0.2
@@ -161,19 +187,10 @@ elements.darkLightIcon.addEventListener('click', ()=>{
         // we want only the child
         if(e.target != elements.gridCont){
             if(e.target.classList.contains('colored')){
-/*                 console.log(e.target.style.backgroundColor)
-                let tempvalue = e.target.style.backgroundColor
-                console.log(typeof tempvalue)
-                tempvalue = tempvalue.slice(0, -1)
-                console.log(tempvalue)
-                tempvalue = tempvalue.slice(3)
-                console.log(tempvalue)
-                tempvalue = 'rgba' + tempvalue + ', 0.5)'
-                console.log(tempvalue) */
                 let opacity = window.getComputedStyle(e.target).opacity
                 console.log(opacity)
                 opacity = +opacity
-                if(opacity>0){
+                if(opacity>0.2){
                     console.log('lighten')
                     //e.target.style.backgroundColor = tempvalue
                     e.target.style.opacity = opacity - 0.2
@@ -245,6 +262,8 @@ function downloadUrl(url, name) {
 //Procedurally creates tiles given number
 //  as well as computes their sizes
 function createTiles(numOfDivs=3){
+    elements.gridCont.clicked = false;
+    
     //divide the container by num of divs then set as size for the tile width and height
     let tileSize = elements.gridCont.clientWidth/numOfDivs
     tileSize = Math.round((tileSize + Number.EPSILON) * 1000) / 1000
@@ -255,11 +274,13 @@ function createTiles(numOfDivs=3){
         tempDiv.classList.add('tile')
         tempDiv.style.flexBasis = tileSize + 'px'
 
+        
 
         tempDiv.style.backgroundColor = initial.BACKGROUND_COLOR
 
+        
         //to set the border color
-        tempDiv.style.borderColor = initial.BORDER_COLOR;
+        tempDiv.style.outlineColor = initial.OUTLINE_COLOR;
 
         //add container div for the border????
 
