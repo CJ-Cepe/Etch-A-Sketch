@@ -10,6 +10,11 @@ body{
     height: 100vh;
 }
 
+:root {
+    --color1: #bebebe;
+    --color2: #ffffff;
+}
+
 /* --- level 1 --- */
 header, footer{
     height: 5%;
@@ -103,8 +108,8 @@ main {
 }
 
 #canvas-color-cont:hover {
-    box-shadow: inset 10px 10px 12px #bebebe,
-    inset -10px -10px 12px #ffffff;
+    box-shadow: inset 10px 10px 12px var(--color1),
+    inset -10px -10px 12px var(--color2);
 }
 
 #blending-cont{
@@ -195,10 +200,10 @@ main {
 }
 
 .rainbow{
-    background: conic-gradient(lime 90deg, yellow 0 180deg, red 0 270deg, blue 0 360deg);
-    transform: rotate(135deg);
+    background: conic-gradient(#4F34CA 60deg, #C038CF 0 120DEG, #FB536A 0 180DEG, #FAEA08 0 240deg, #A0EA48 0 300deg, #19CC59 0 360deg);
+    transform: rotate(45deg);
 }
 
 .solid{
     background-color: black;
-}
+}   

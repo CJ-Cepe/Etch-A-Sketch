@@ -35,9 +35,11 @@ const initial = {
     BACKGROUND_COLOR: `#e8e8e8`,
 }
 
-elements.canvasColor.addEventListener('click', () => {
-    elements.canvasColorPicker.click()
-    console.log('canvas cliked')
+elements.canvasColor.addEventListener('click', (e) => {
+    if(e.target == elements.canvasColor){
+        elements.canvasColorPicker.click()
+        console.log('canvas cliked')
+    }
 })
 
 /* //note to me
@@ -49,8 +51,17 @@ elements.canvasColor.addEventListener('click', () => {
 
 elements.canvasColorPicker.addEventListener('input', () => {
     elements.canvasColor.style.backgroundColor = elements.canvasColorPicker.value
-    initial.BACKGROUND_COLOR = elements.canvasColorPicker.value
+    let hsl = hexToHSL(elements.canvasColorPicker.value)
+    console.log(typeof hsl)
+    console.log(`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]-20}%)`)
+    console.log(`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]+20}%)`)
 
+    elements.canvasColor.style.setProperty('--color1', `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]-10}%)`)
+    elements.canvasColor.style.setProperty('--color2', `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]+10}%)`)
+
+    //elements.canvasColor.style.boxShadow = `inset 10px 10px 12px #bebebe, inset -10px -10px 12px #ffffff`
+    initial.BACKGROUND_COLOR = elements.canvasColorPicker.value
+    
 
     let tiles = document.querySelectorAll('.tile')
     tiles = Array.from(tiles)
@@ -68,6 +79,7 @@ elements.canvasColorPicker.addEventListener('input', () => {
     console.log(`${initial.BACKGROUND_COLOR}`)
     console.log(`${elements.gridCont.style.backgroundColor}`)
 })
+
 
 
 createTiles(10)
@@ -95,7 +107,7 @@ elements.gridOpacitySlider.addEventListener('input', ()=>{
 })
 
 //picking colors
-elements.colorCont.addEventListener('input', function(){
+elements.colorCont.addEventListener('input', function(e){
     initial.BASE_COLOR = elements.colorCont.value
     updateIconColors()
 })
@@ -107,6 +119,7 @@ elements.solidIcon.addEventListener('click', function(){
             e.target.style.backgroundColor = initial.BASE_COLOR
             console.log(`solid`)
             //opacity can be set to 1
+            e.target.style.opacity = 1
             e.target.classList.add('colored')
         }
     }
@@ -120,6 +133,7 @@ elements.rainbowIcon.addEventListener('click', ()=>{
             e.target.style.backgroundColor = rainbow()
             console.log(`rainbow`)
             //opacity can be set to 1
+            e.target.style.opacity = 1
             e.target.classList.add('colored')
         }
     }
@@ -187,12 +201,15 @@ elements.clear.addEventListener('click', function(){
 
     //possible to change base on base background not just white
     tiles.forEach((tile) => {
-        if(tile.classList.contains('colored')){
             tile.classList.remove('colored')
+            initial.BACKGROUND_COLOR = `#e8e8e8`
+            //elements.canvasColorPicker.value = hexToRgb(`#e8e8e8`)
+            elements.canvasColor.style.backgroundColor  =  `#e8e8e8`
+            elements.canvasColor.style.setProperty('--color1', `#bebebe`)
+            elements.canvasColor.style.setProperty('--color2', `#ffffff`)
             tile.style.backgroundColor = initial.BACKGROUND_COLOR
             tile.style.opacity = 1
             console.log('clear')
-        }
     })
 
     highLightButton(6)
@@ -266,7 +283,7 @@ function updateIconColors(){
 
 //converts hex values to equivalent rgb values
 function hexToRgb(hex){
-//reference https://convertingcolors.com/blog/article/convert_hex_to_rgb_with_javascript.html
+//reference: https://convertingcolors.com/blog/article/convert_hex_to_rgb_with_javascript.html
     hex = hex.substring(1)
     if(hex.length != 6){
         console.log('not equal to 6')
@@ -278,6 +295,54 @@ function hexToRgb(hex){
         parseInt(aRgbHex[2], 16)
     ];
     return aRgb
+}
+
+function hexToHSL(H) {
+//reference: https://css-tricks.com/converting-color-spaces-in-javascript/
+    // Convert hex to RGB first
+    let r = 0, g = 0, b = 0;
+    if (H.length == 4) {
+      r = "0x" + H[1] + H[1];
+      g = "0x" + H[2] + H[2];
+      b = "0x" + H[3] + H[3];
+    } else if (H.length == 7) {
+      r = "0x" + H[1] + H[2];
+      g = "0x" + H[3] + H[4];
+      b = "0x" + H[5] + H[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    let cmin = Math.min(r,g,b),
+        cmax = Math.max(r,g,b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+  
+    if (delta == 0)
+      h = 0;
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    else
+      h = (r - g) / delta + 4;
+  
+    h = Math.round(h * 60);
+  
+    if (h < 0)
+      h += 360;
+  
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+  
+    //console.log([h, s, l])
+    //return "hsl(" + h + "," + s + "%," + l + "%)";
+    return [h, s, l]
 }
 
 function rainbow(){
@@ -323,7 +388,7 @@ function highLightButton(button){
             break
         case 6:
             //no highlight
-            resetButtonHighlight()
+            //resetButtonHighlight()
             //clear and save
             break
     }
