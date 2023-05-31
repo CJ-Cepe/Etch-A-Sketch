@@ -30,6 +30,7 @@ const elements = {
 
 const initial = {
     BORDER_COLOR: `rgba(0, 0, 0, 0.1)`,
+    OUTLINE_COLOR: `rgba(26, 26, 26, 0.1)`,
     BASE_COLOR: `rgb(0, 0, 0)`,
     //BACKGROUND_COLOR:  `rgb(255, 255, 255)`,
     BACKGROUND_COLOR: `#e8e8e8`,
@@ -42,24 +43,18 @@ elements.canvasColor.addEventListener('click', (e) => {
     }
 })
 
-/* //note to me
-1. add classname to All tiles
-2. if filled/colored add new class in the list
-3. if element doesn't have this class, cant be shade/tint 
-4. elements without that class is a background  */
-
 
 elements.canvasColorPicker.addEventListener('input', () => {
     elements.canvasColor.style.backgroundColor = elements.canvasColorPicker.value
     let hsl = hexToHSL(elements.canvasColorPicker.value)
-    console.log(typeof hsl)
-    console.log(`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]-20}%)`)
-    console.log(`hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]+20}%)`)
 
+    //create shadow on upper right
     elements.canvasColor.style.setProperty('--color1', `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]-10}%)`)
+    
+    //create light on lower left
     elements.canvasColor.style.setProperty('--color2', `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]+10}%)`)
 
-    //elements.canvasColor.style.boxShadow = `inset 10px 10px 12px #bebebe, inset -10px -10px 12px #ffffff`
+   
     initial.BACKGROUND_COLOR = elements.canvasColorPicker.value
     
 
@@ -166,12 +161,24 @@ elements.darkLightIcon.addEventListener('click', ()=>{
         // we want only the child
         if(e.target != elements.gridCont){
             if(e.target.classList.contains('colored')){
+/*                 console.log(e.target.style.backgroundColor)
+                let tempvalue = e.target.style.backgroundColor
+                console.log(typeof tempvalue)
+                tempvalue = tempvalue.slice(0, -1)
+                console.log(tempvalue)
+                tempvalue = tempvalue.slice(3)
+                console.log(tempvalue)
+                tempvalue = 'rgba' + tempvalue + ', 0.5)'
+                console.log(tempvalue) */
                 let opacity = window.getComputedStyle(e.target).opacity
+                console.log(opacity)
                 opacity = +opacity
                 if(opacity>0){
                     console.log('lighten')
+                    //e.target.style.backgroundColor = tempvalue
                     e.target.style.opacity = opacity - 0.2
-                }
+                } 
+
             }
         }
     }
@@ -253,6 +260,9 @@ function createTiles(numOfDivs=3){
 
         //to set the border color
         tempDiv.style.borderColor = initial.BORDER_COLOR;
+
+        //add container div for the border????
+
         elements.gridCont.appendChild(tempDiv)
     }
 }
