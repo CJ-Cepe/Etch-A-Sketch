@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 729.5 800.25">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 40px;
+      }
+
+      .cls-2 {
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <line class="cls-2" x1="364.52" y1="20" x2="364.98" y2="391.25"/>
+        <path d="m548.76,414.53l-184.02,211.88-184.02-211.88h368.03m87.72-40H93.01l271.73,312.88,271.73-312.88h0Z"/>
+      </g>
+      <polyline class="cls-1" points="20 634.98 20 780.25 709.5 780.25 709.5 634.98"/>
+    </g>
+  </g>
+</svg>
