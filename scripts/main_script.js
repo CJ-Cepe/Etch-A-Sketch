@@ -1,5 +1,4 @@
 
-// GLOBAL VARIABLES
 const elements = {
     gridCont: document.querySelector('#grid-cont'),
     tiles: document.querySelector('.tile'),
@@ -42,7 +41,6 @@ elements.canvasColor.addEventListener('click', (e) => {
         console.log('canvas cliked')
     }
 })
-
 
 elements.canvasColorPicker.addEventListener('input', () => {
     elements.canvasColor.style.backgroundColor = elements.canvasColorPicker.value
@@ -111,8 +109,14 @@ elements.colorCont.addEventListener('input', function(e){
 elements.gridCont.addEventListener('mousedown', function(e){
     elements.gridCont.clicked = true;
 
-    //so that the first tile that is clicked, is colored as well
-    elements.gridCont.onmouseover(e, 'mouseover');
+    try{
+        //so that the first tile that is clicked, is colored as well
+        elements.gridCont.onmouseover(e, 'mouseover');
+    } catch(err){
+        console.log('pick a button first')
+    }
+    
+    //add try catch
 })
 
 elements.gridCont.addEventListener('mouseup', function(e){
@@ -130,7 +134,6 @@ elements.solidIcon.addEventListener('click', function(){
         console.log(e)
         if((e.type === 'mouseover' || temp === 'mouseover') && elements.gridCont.clicked){
             console.log(`clicked ${elements.gridCont.clicked}`)
-
             if(e.target != elements.gridCont){
                 initial.BASE_COLOR = elements.colorCont.value
                 e.target.style.backgroundColor = initial.BASE_COLOR
@@ -139,22 +142,22 @@ elements.solidIcon.addEventListener('click', function(){
                 e.target.style.opacity = 1
                 e.target.classList.add('colored')
             }
-
-        } else {
-            console.log(`not clicked ${elements.gridCont.clicked}`)
         }
     }
+
     highLightButton(1)
 })
 
 elements.rainbowIcon.addEventListener('click', ()=>{
-    elements.gridCont.onmouseover = (e) => {
-        if(e.target != elements.gridCont){
-            e.target.style.backgroundColor = rainbow()
-            console.log(`rainbow`)
-            //opacity can be set to 1
-            e.target.style.opacity = 1
-            e.target.classList.add('colored')
+    elements.gridCont.onmouseover = (e, temp) => {
+        if((e.type === 'mouseover' || temp === 'mouseover') && elements.gridCont.clicked){
+            if(e.target != elements.gridCont){
+                e.target.style.backgroundColor = rainbow()
+                console.log(`rainbow`)
+                //opacity can be set to 1
+                e.target.style.opacity = 1
+                e.target.classList.add('colored')
+            }
         }
     }
 
@@ -164,15 +167,17 @@ elements.rainbowIcon.addEventListener('click', ()=>{
 
 //================= darken and lighten =================================
 elements.lightDarkIcon.addEventListener('click', ()=>{
-    elements.gridCont.onmouseover = (e) => {
-        if(e.target != elements.gridCont){
-            if(e.target.classList.contains('colored')){
-                let opacity = window.getComputedStyle(e.target).opacity
-                opacity = +opacity
-                console.log(opacity)
-                if(opacity<1){
-                    console.log('darken')
-                    e.target.style.opacity = opacity + 0.2
+    elements.gridCont.onmouseover = (e, temp) => {
+        if((e.type === 'mouseover' || temp === 'mouseover') && elements.gridCont.clicked){
+            if(e.target != elements.gridCont){
+                if(e.target.classList.contains('colored')){
+                    let opacity = window.getComputedStyle(e.target).opacity
+                    opacity = +opacity
+                    console.log(opacity)
+                    if(opacity<1){
+                        console.log('darken')
+                        e.target.style.opacity = opacity + 0.2
+                    }
                 }
             }
         }
@@ -182,20 +187,22 @@ elements.lightDarkIcon.addEventListener('click', ()=>{
 })
 
 elements.darkLightIcon.addEventListener('click', ()=>{
-    elements.gridCont.onmouseover = (e) => {
+    elements.gridCont.onmouseover = (e, temp) => {
         //if to prevent the parent being the e.target
         // we want only the child
-        if(e.target != elements.gridCont){
-            if(e.target.classList.contains('colored')){
-                let opacity = window.getComputedStyle(e.target).opacity
-                console.log(opacity)
-                opacity = +opacity
-                if(opacity>0.2){
-                    console.log('lighten')
-                    //e.target.style.backgroundColor = tempvalue
-                    e.target.style.opacity = opacity - 0.2
-                } 
+        if((e.type === 'mouseover' || temp === 'mouseover') && elements.gridCont.clicked){
+            if(e.target != elements.gridCont){
+                if(e.target.classList.contains('colored')){
+                    let opacity = window.getComputedStyle(e.target).opacity
+                    console.log(opacity)
+                    opacity = +opacity
+                    if(opacity>0.2){
+                        console.log('lighten')
+                        //e.target.style.backgroundColor = tempvalue
+                        e.target.style.opacity = opacity - 0.2
+                    } 
 
+                }
             }
         }
     }
@@ -205,13 +212,15 @@ elements.darkLightIcon.addEventListener('click', ()=>{
 
 //================ 
 elements.eraser.addEventListener('click', function(){
-    elements.gridCont.onmouseover = (e) => {
-        if(e.target != elements.gridCont){
-            if(e.target.classList.contains('colored')){
-                e.target.classList.remove('colored')
-                e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
-                e.target.style.opacity = 1
-                console.log('eraser')
+    elements.gridCont.onmouseover = (e, temp) => {
+        if((e.type === 'mouseover' || temp === 'mouseover') && elements.gridCont.clicked){
+            if(e.target != elements.gridCont){
+                if(e.target.classList.contains('colored')){
+                    e.target.classList.remove('colored')
+                    e.target.style.backgroundColor = initial.BACKGROUND_COLOR;
+                    e.target.style.opacity = 1
+                    console.log('eraser')
+                }
             }
         }
     }
