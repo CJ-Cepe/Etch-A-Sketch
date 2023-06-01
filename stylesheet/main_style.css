@@ -8,6 +8,7 @@
 
 body{
     height: 100vh;
+    font-family: 'Rubik', sans-serif;
 }
 
 :root {
@@ -21,11 +22,20 @@ header, footer{
     background-color: black;
     color: white;
 
-    font-size: 1.5rem;
-
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+header{
+    font-weight: 400;
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+}
+
+footer{
+    font-weight: 300;
+    font-size: 1.5rem;
 }
 
 main {
