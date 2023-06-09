@@ -82,7 +82,7 @@ elements.numTilesSlider.addEventListener('input', ()=>{
     removeTiles()
     console.log(elements.numTilesSlider.value)
     createTiles(elements.numTilesSlider.value)
-    elements.dimension.textContent = `${elements.numTilesSlider.value}`
+    elements.dimension.textContent = `${elements.numTilesSlider.value} x ${elements.numTilesSlider.value}`
 })
 
 //Adjust tile grid opacity
